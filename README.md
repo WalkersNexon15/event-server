@@ -111,6 +111,7 @@ requestData?: Record<string, any>;
   `node scripts/set-quest-status.js --user user1 --questId q1 --completed true --eventId <eventId> --mongoUri <mongoUri>`
 - **e2e 테스트 실행**  
   `cd e2e-test && pnpm run test`
+
   테스트 환경이 항상 동일하게 유지되도록, 테스트 전후로 flush-db.js 등으로 DB를 초기화하는 것을 권장합니다.
 
 ### e2e 테스트용 퀘스트 상태 세팅 스크립트
