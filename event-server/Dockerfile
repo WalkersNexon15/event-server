@@ -1,17 +1,11 @@
-FROM node:18
+FROM node:18-slim
 
 WORKDIR /usr/src/app
 
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install
 
 COPY . .
 
-RUN pnpm run build
-
-EXPOSE 3001
-
-CMD ["node", "dist/main"] 
+CMD ["pnpm", "run", "start:dev"] 

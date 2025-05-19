@@ -25,8 +25,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - AUTH_SERVICE_URL=http://auth-server:3001
-      - EVENT_SERVICE_URL=http://event-server:3002
+      - AUTH_SERVER_URL=http://auth-server:3001
+      - EVENT_SERVER_URL=http://event-server:3002
       - JWT_SECRET=nexon-2025-assignment!
     volumes:
       - ./gateway-server:/usr/src/app
@@ -44,12 +44,15 @@ services:
       dockerfile: Dockerfile.dev
     container_name: auth-server
     restart: always
-    ports:
-      - "3001:3001"
+    expose:
+      - "3001"
     environment:
       - NODE_ENV=development
+      - PORT=3001
       - MONGODB_URI=mongodb://root:password@mongodb:27017/auth?authSource=admin
-      - JWT_SECRET=nex
+      - JWT_SECRET=nexon-2025-assignment!
+      - ADMIN_USER_ID=admin
+      - ADMIN_PASSWORD=2025-assignment!
     volumes:
       - ./auth-server:/usr/src/app
       - /usr/src/app/node_modules
@@ -65,11 +68,13 @@ services:
       dockerfile: Dockerfile.dev
     container_name: event-server
     restart: always
-    ports:
-      - "3002:3002"
+    expose:
+      - "3002"
     environment:
       - NODE_ENV=development
       - MONGODB_URI=mongodb://root:password@mongodb:27017/event?authSource=admin
+      - JWT_SECRET=nexon-2025-assignment!
+      - PORT=3002
     volumes:
       - ./event-server:/usr/src/app
       - /usr/src/app/node_modules
